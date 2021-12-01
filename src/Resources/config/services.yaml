@@ -1,0 +1,32 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    FileHandler\Bundle\FileHandlerBundle\:
+        resource: '../../../src/'
+        exclude:
+            - '../../../src/DependencyInjection/'
+            - '../../../src/Entity/'
+            - '../../../src/Kernel.php'
+            - '../../../Tests/'
+
+    _instanceof:
+        # services whose classes are instances of CustomInterface will be tagged automatically
+        FileHandler\Bundle\FileHandlerBundle\Repository\FileRepositoryInterface:
+            tags: [ 'file_handler.file_repository_tag' ]
+
+
+    FileHandler\Bundle\FileHandlerBundle\FileRepositoryProvider:
+        arguments:
+            - !tagged_iterator file_handler.file_repository_tag
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
