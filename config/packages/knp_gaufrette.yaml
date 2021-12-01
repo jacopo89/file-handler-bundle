@@ -1,0 +1,14 @@
+knp_gaufrette:
+  adapters:
+    pms_adapter:
+      local:
+        directory: '%kernel.project_dir%/public'
+    pms_adapter_images:
+      local:
+        directory: '%kernel.project_dir%/public/images'
+
+  filesystems:
+    pms:
+      adapter: pms_adapter
+    pms_images:
+      adapter: pms_adapter_images
