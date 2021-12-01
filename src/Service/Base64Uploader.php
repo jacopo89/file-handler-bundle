@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace FileHandler\Bundle\FileHandlerBundle\Service;
 
 
-use App\Service\FileFactory;
 use FileHandler\Bundle\FileHandlerBundle\Model\FileInterface;
 use FileHandler\Bundle\FileHandlerBundle\Model\FileToUpload;
 use FileHandler\Bundle\FileHandlerBundle\Model\UploadedBase64File;
