@@ -20,6 +20,7 @@ services:
             - '../../../src/Entity/'
             - '../../../src/Kernel.php'
             - '../../../Tests/'
+            - '../../../src/Repository/FileRepository.php'
 
     _instanceof:
         # services whose classes are instances of CustomInterface will be tagged automatically
