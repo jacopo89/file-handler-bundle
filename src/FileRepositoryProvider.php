@@ -35,7 +35,7 @@ class FileRepositoryProvider
      */
     public function get(string $name): FileRepositoryInterface
     {
-        if (!isset($this->resources[$name])) {
+        if (!isset($this->fileRepositories[$name])) {
             throw new UndefinedFileRepositoryException($name);
         }
         return $this->fileRepositories[$name];

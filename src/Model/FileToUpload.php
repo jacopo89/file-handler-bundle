@@ -3,9 +3,9 @@
 
 namespace FileHandler\Bundle\FileHandlerBundle\Model;
 
-use App\Service\Base64decoder;
-use App\Service\File\FileInfoGuesser;
-use App\Service\File\FileNameGenerator;
+use FileHandler\Bundle\FileHandlerBundle\Service\Base64decoder;
+use FileHandler\Bundle\FileHandlerBundle\Service\FileInfoGuesser;
+use FileHandler\Bundle\FileHandlerBundle\Service\FileNameGenerator;
 
 class FileToUpload
 {
