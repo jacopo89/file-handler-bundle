@@ -3,20 +3,28 @@ declare(strict_types=1);
 
 namespace FileHandler\Bundle\FileHandlerBundle\Repository;
 
-use App\Entity\File;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
 use FileHandler\Bundle\FileHandlerBundle\Model\FileInterface;
 
-class FileRepository extends EntityRepository implements FileRepositoryInterface
+
+/**
+ * Class FileRepository
+ * @package FileHandler\Bundle\FileHandlerBundle\Repository
+ * @template T
+ * @template-extends ServiceEntityRepository<T>
+ */
+class FileRepository extends ServiceEntityRepository
 {
-    public function __construct(EntityManagerInterface $em, ClassMetadata $class)
+    /**
+     * @param ManagerRegistry $managerRegistry
+     * @param string $entityClass The class name of the entity this repository manages
+     * @psalm-param class-string<T> $entityClass
+     */
+    public function __construct(ManagerRegistry $managerRegistry, string $entityClass)
     {
-        parent::__construct($em, $class);
+        parent::__construct($managerRegistry, $entityClass);
     }
 
     public function remove(FileInterface $file): void
