@@ -57,4 +57,9 @@ class FileRepository extends ServiceEntityRepository implements FileRepositoryIn
     {
         return $this->getClassName();
     }
+
+    public function getSubDir(): ?string
+    {
+        return "/";
+    }
 }

@@ -23,7 +23,7 @@ class FileFactory
         if($existingFile instanceof FileInterface)
             return $existingFile;
 
-        $url = $this->fileUploadService->upload($fileToUpload);
+        $url = $this->fileUploadService->upload($fileToUpload, $fileRepository->getSubDir());
 
         return ($fileRepository->getClassName())::createFromFileModel($fileToUpload, $url->getRelative(), $url->getAbsolute(), $title, $description);
     }

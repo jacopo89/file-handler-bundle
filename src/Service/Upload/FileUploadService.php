@@ -21,9 +21,9 @@ class FileUploadService
         $this->appBaseUrl = $appBaseUrl;
     }
 
-    public function upload(FileToUpload $file)
+    public function upload(FileToUpload $file, $subDir ="/" )
     {
-        $path = sprintf("%s/%s.%s", $file->getSubDir(), $file->getFilename(), $file->getFileInfo()->getExt());
+        $path = sprintf("%s/%s.%s", $subDir, $file->getFilename(), $file->getFileInfo()->getExt());
         $this->filesystem->write($path, $file->getContent());
 
         $relativeUrl = $this->filesystem->resolve($path);
