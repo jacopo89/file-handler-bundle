@@ -42,7 +42,7 @@ class FileNormalizer implements ContextAwareDenormalizerInterface, CacheableSupp
     public function supportsDenormalization($data, string $type, string $format = null, array $context = [])
     {
         try{
-            return class_implements($type, FileInterface::class);
+            return in_array(FileInterface::class,class_implements($type));
         }catch(\Exception $exception){
             return false;
         }
