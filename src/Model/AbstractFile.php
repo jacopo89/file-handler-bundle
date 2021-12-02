@@ -5,6 +5,7 @@ namespace FileHandler\Bundle\FileHandlerBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\MappedSuperclass;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @MappedSuperclass
@@ -15,12 +16,14 @@ abstract class AbstractFile implements FileInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ("file:read")
      *
      */
     protected int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ("file:read")
      *
      */
     protected string $filename;
@@ -33,19 +36,21 @@ abstract class AbstractFile implements FileInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ("file:read")
      *
      */
     protected string $subDir;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ("file:read")
      *
      */
     protected string $path;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
+     * @Groups ("file:read")
      */
     protected string $url;
 
@@ -76,14 +81,14 @@ abstract class AbstractFile implements FileInterface
     /**
      * @var string|null
      * @ORM\Column (type="string", length=255, nullable=true)
-     *
+     * @Groups ("file:read")
      */
     protected ?string $title = null;
 
     /**
      * @var string|null
      * @ORM\Column (type="string", length=255, nullable=true)
-     *
+     * @Groups ("file:read")
      */
     protected ?string $description = null;
 
