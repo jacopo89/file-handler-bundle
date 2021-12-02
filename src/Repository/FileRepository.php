@@ -15,7 +15,7 @@ use FileHandler\Bundle\FileHandlerBundle\Model\FileInterface;
  * @template T
  * @template-extends ServiceEntityRepository<T>
  */
-class FileRepository extends ServiceEntityRepository
+class FileRepository extends ServiceEntityRepository implements FileRepositoryInterface
 {
     /**
      * @param ManagerRegistry $managerRegistry
