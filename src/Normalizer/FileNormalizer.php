@@ -76,7 +76,9 @@ class FileNormalizer implements ContextAwareDenormalizerInterface, CacheableSupp
 
     public function normalize($object, string $format = null, array $context = [])
     {
-        $url = $this->router->generate('im_file', ['file' => (string)$object->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $context["groups"][] = "file:read";
+        return $this->normalizer->normalize($object,$format,$context);
+        //$url = $this->router->generate('im_file', ['file' => (string)$object->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
         return array_merge($this->normalizer->normalize($object, $format, $context), ["thumbnailUrl" => $url]);
     }
 }

@@ -55,6 +55,6 @@ class FileRepository extends ServiceEntityRepository implements FileRepositoryIn
 
     public function getName()
     {
-        return static::class;
+        return $this->getClassName();
     }
 }

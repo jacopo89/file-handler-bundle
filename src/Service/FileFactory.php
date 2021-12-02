@@ -25,7 +25,7 @@ class FileFactory
 
         $url = $this->fileUploadService->upload($fileToUpload);
 
-        return $type::createFromFileModel($fileToUpload, $url->getRelative(), $url->getAbsolute(), $title, $description);
+        return ($fileRepository->getClassName())::createFromFileModel($fileToUpload, $url->getRelative(), $url->getAbsolute(), $title, $description);
     }
 
 }
