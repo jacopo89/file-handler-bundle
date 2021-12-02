@@ -11,18 +11,14 @@ use FileHandler\Bundle\FileHandlerBundle\Service\Upload\FileUploadService;
 class FileFactory
 {
     private FileUploadService $fileUploadService;
-    private FileRepositoryProvider $fileRepositoryProvider;
 
-
-    public function __construct(FileUploadService $fileUploadService, FileRepositoryProvider $fileRepositoryProvider)
+    public function __construct(FileUploadService $fileUploadService)
     {
         $this->fileUploadService = $fileUploadService;
-        $this->fileRepositoryProvider = $fileRepositoryProvider;
     }
 
-    public function create(FileToUpload $fileToUpload, string $type, string $title = null, string $description = null): FileInterface
+    public function create(FileToUpload $fileToUpload, $fileRepository, string $type, string $title = null, string $description = null): FileInterface
     {
-        $fileRepository = $this->fileRepositoryProvider->get($type);
         $existingFile = $fileRepository->findOneByMd5($fileToUpload->getMd5());
         if($existingFile instanceof FileInterface)
             return $existingFile;

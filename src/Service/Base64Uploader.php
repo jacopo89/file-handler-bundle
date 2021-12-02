@@ -27,9 +27,9 @@ class Base64Uploader
         return $this->createFile(FileToUpload::createPDFFromBase64File($uploadedBase64File), $uploadedBase64File);
     }
 
-    public function fromBase64File(UploadedBase64File $uploadedBase64File): FileInterface
+    public function fromBase64File(UploadedBase64File $uploadedBase64File): FileToUpload
     {
-        return $this->createFile(FileToUpload::createFileFromBase64File($uploadedBase64File), $uploadedBase64File);
+        return FileToUpload::createFromBase64File($uploadedBase64File);
     }
 
     private function createFile(FileToUpload $fileToUpload, UploadedBase64File $uploadedBase64File): FileInterface

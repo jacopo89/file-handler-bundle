@@ -7,6 +7,7 @@ use FileHandler\Bundle\FileHandlerBundle\FileRepositoryProvider;
 use FileHandler\Bundle\FileHandlerBundle\Model\FileInterface;
 use FileHandler\Bundle\FileHandlerBundle\Model\UploadedBase64File;
 use FileHandler\Bundle\FileHandlerBundle\Service\Base64Uploader;
+use FileHandler\Bundle\FileHandlerBundle\Service\FileFactory;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
@@ -23,13 +24,15 @@ class FileNormalizer implements ContextAwareDenormalizerInterface, CacheableSupp
 
     private FileRepositoryProvider $repositoryProvider;
     private RouterInterface $router;
+    private FileFactory $fileFactory;
 
-    public function __construct(ObjectNormalizer $normalizer, Base64Uploader $uploader, FileRepositoryProvider $repositoryProvider, RouterInterface $router)
+    public function __construct(ObjectNormalizer $normalizer, Base64Uploader $uploader, FileRepositoryProvider $repositoryProvider, RouterInterface $router, FileFactory $fileFactory)
     {
         $this->normalizer = $normalizer;
         $this->uploader = $uploader;
         $this->repositoryProvider = $repositoryProvider;
         $this->router = $router;
+        $this->fileFactory = $fileFactory;
 
     }
 
@@ -52,12 +55,14 @@ class FileNormalizer implements ContextAwareDenormalizerInterface, CacheableSupp
 
     public function denormalize($data, string $type, string $format = null, array $context = [])
     {
+        $context["groups"][]= "base64file:write";
         $repository = $this->repositoryProvider->get($type);
         if (isset($data["id"])) {
             $file  = $repository->find($data["id"]);
         } else {
             $base64file = $this->normalizer->denormalize($data, UploadedBase64File::class, $format, $context);
-            $file = $this->uploader->fromBase64File($base64file);
+            $fileToUpload = $this->uploader->fromBase64File($base64file);
+            $file = $this->fileFactory->create($fileToUpload, $repository, $base64file->getTitle(), $base64file->getDescription());
         }
 
         return $file;
