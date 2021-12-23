@@ -44,10 +44,11 @@ class ImageController extends AbstractController
         $md5Name = $supportWebp ? $file->getFilename() . "_w" . $w . ".webp" : $file->getFilename() . "_w" . $w;
         $md5FileName = sprintf("%s.%s", md5($md5Name), $supportWebp ? "webp" : $file->getExt());
 
-        $folderPath = sprintf("files/thumbnails/%s", $fileRepository->getSubDir());
+        $folderRelativePath = sprintf("files/thumbnails/%s", $fileRepository->getSubDir());
+        $folderPath = sprintf("%s/files/thumbnails/%s", $this->publicDir, $fileRepository->getSubDir());
         if(!file_exists($folderPath)) mkdir($folderPath);
 
-        $newFilePath = sprintf("%s/%s",$folderPath, $md5FileName);
+        $newFilePath = sprintf("%s/%s",$folderRelativePath, $md5FileName);
         if (file_exists($newFilePath)) return BinaryFileResponse::create($newFilePath);
 
         copy(sprintf("%s/%s", $this->publicDir, $file->getPath()), $newFilePath);
