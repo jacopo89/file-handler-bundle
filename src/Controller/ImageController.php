@@ -23,9 +23,9 @@ class ImageController extends AbstractController
     private string $publicDir;
     private FileRepositoryProvider $fileRepositoryProvider;
 
-    public function __construct(FileRepositoryProvider $fileRepositoryProvider)
+    public function __construct(string $projectDir,FileRepositoryProvider $fileRepositoryProvider)
     {
-        $this->publicDir = sprintf("%s/%s",$this->container->get('kernel.project_dir'), "public");
+        $this->publicDir = sprintf("%s/%s",$projectDir, "public");
         $this->fileRepositoryProvider = $fileRepositoryProvider;
     }
 
