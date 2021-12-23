@@ -36,7 +36,8 @@ class ImageController extends AbstractController
     {
         $fileRepository = $this->fileRepositoryProvider->get($resourceName);
         $file = $fileRepository->find($id);
-        if (! $file->isImage()) return BinaryFileResponse::create($this->publicDir."/". $file->getPath());
+        $path = sprintf("%s/%s/%s", $this->publicDir, $fileRepository->getSubDir(), $file->getPath());
+        if (! $file->isImage()) return BinaryFileResponse::create($path);
         $w = $request->query->get('w', null);
         $supportWebp = $this->supportWebp($request);
 
