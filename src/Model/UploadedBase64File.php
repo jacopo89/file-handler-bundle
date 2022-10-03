@@ -28,7 +28,7 @@ class UploadedBase64File
     /**
      * @Groups ({"base64file:write"})
      */
-    private string $filename;
+    private string $filename = "";
 
     /**
      * @Groups ({"base64file:write"})
